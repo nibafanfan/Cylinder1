@@ -28,7 +28,7 @@ def get_pc_model_class(name):
 @register_dataset
 class SemKITTI_demo(data.Dataset):
     def __init__(self, data_path, imageset='demo',
-                 return_ref=True, label_mapping="semantic-kitti.yaml", demo_label_path=None):
+                 return_ref=True, label_mapping="rellis.yml", demo_label_path=None):
         with open(label_mapping, 'r') as stream:
             semkittiyaml = yaml.safe_load(stream)
         self.learning_map = semkittiyaml['learning_map']
@@ -36,12 +36,13 @@ class SemKITTI_demo(data.Dataset):
         self.return_ref = return_ref
 
         self.im_idx = []
+        print(data_path,'datapath')
         self.im_idx += absoluteFilePaths(data_path)
         self.label_idx = []
         if self.imageset == 'val':
-            print(demo_label_path)
+            print(demo_label_path,'demo_label_path')
             self.label_idx += absoluteFilePaths(demo_label_path)
-
+        print(self.im_idx, 'im_idx')
     def __len__(self):
         'Denotes the total number of samples'
         return len(self.im_idx)
@@ -63,7 +64,7 @@ class SemKITTI_demo(data.Dataset):
 @register_dataset
 class SemKITTI_sk(data.Dataset):
     def __init__(self, data_path, imageset='train',
-                 return_ref=False, label_mapping="semantic-kitti.yaml", nusc=None):
+                 return_ref=False, label_mapping="rellis.yml", nusc=None):
         self.return_ref = return_ref
         with open(label_mapping, 'r') as stream:
             semkittiyaml = yaml.safe_load(stream)
@@ -95,7 +96,7 @@ class SemKITTI_sk(data.Dataset):
                                          dtype=np.uint32).reshape((-1, 1))
             annotated_data = annotated_data & 0xFFFF  # delete high 16 digits binary
             annotated_data = np.vectorize(self.learning_map.__getitem__)(annotated_data)
-
+        
         data_tuple = (raw_data[:, :3], annotated_data.astype(np.uint8))
         if self.return_ref:
             data_tuple += (raw_data[:, 3],)
@@ -141,8 +142,12 @@ class SemKITTI_nusc(data.Dataset):
 
 
 def absoluteFilePaths(directory):
+    # # print(len(filenames),'lenfilenames')
+    # print(directory,'directory')
+    # print(os.walk(directory),'oswalk')
     for dirpath, _, filenames in os.walk(directory):
         filenames.sort()
+        
         for f in filenames:
             yield os.path.abspath(os.path.join(dirpath, f))
 

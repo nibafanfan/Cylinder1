@@ -30,7 +30,9 @@ def build(dataset_config,
                                 return_ref=train_ref, label_mapping=label_mapping, nusc=nusc)
     val_pt_dataset = SemKITTI(data_path, imageset=val_imageset,
                               return_ref=val_ref, label_mapping=label_mapping, nusc=nusc)
-
+    import numpy as np
+    print("sdfsdf",train_pt_dataset.learning_map.keys())
+    print("sdfsdfsd",train_pt_dataset.__getitem__(2))
     train_dataset = get_model_class(dataset_config['dataset_type'])(
         train_pt_dataset,
         grid_size=grid_size,

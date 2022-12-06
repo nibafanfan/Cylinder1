@@ -13,6 +13,10 @@ def fast_hist(pred, label, n):
 
 
 def per_class_iu(hist):
+    print(hist.sum(1),'hist1')
+    print(hist.sum(0),'hist0')
+    print(hist,'hist')
+    print(np.diag(hist))
     return np.diag(hist) / (hist.sum(1) + hist.sum(0) - np.diag(hist))
 
 

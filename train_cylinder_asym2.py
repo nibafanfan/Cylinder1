@@ -61,12 +61,16 @@ def main(args):
 
     loss_func, lovasz_softmax = loss_builder.build(wce=True, lovasz=True,
                                                    num_class=num_class, ignore_label=ignore_label)
-
+    print(dataset_config,'datasetconfig')
+    print(train_dataloader_config,'trainconfig')
+    print(val_dataloader_config,'valconfig')
+    print(grid_size,'gridsize')
     train_dataset_loader, val_dataset_loader = data_builder.build(dataset_config,
                                                                   train_dataloader_config,
                                                                   val_dataloader_config,
                                                                   grid_size=grid_size)
-
+    
+    
     # training
     epoch = 0
     best_val_miou = 0
@@ -80,6 +84,7 @@ def main(args):
         time.sleep(10)
         # lr_scheduler.step(epoch)
         for i_iter, (_, train_vox_label, train_grid, _, train_pt_fea) in enumerate(train_dataset_loader):
+
             if global_iter % check_iter == 0 and epoch >= 1:
                 my_model.eval()
                 hist_list = []
@@ -87,7 +92,7 @@ def main(args):
                 with torch.no_grad():
                     for i_iter_val, (_, val_vox_label, val_grid, val_pt_labs, val_pt_fea) in enumerate(
                             val_dataset_loader):
-
+                        
                         val_pt_fea_ten = [torch.from_numpy(i).type(torch.FloatTensor).to(pytorch_device) for i in
                                           val_pt_fea]
                         val_grid_ten = [torch.from_numpy(i).to(pytorch_device) for i in val_grid]
@@ -114,6 +119,8 @@ def main(args):
                 del val_vox_label, val_grid, val_pt_fea, val_grid_ten
 
                 # save model if performance is improved
+                print('bestvalmiou',best_val_miou)
+                print('val', val_miou)
                 if best_val_miou < val_miou:
                     best_val_miou = val_miou
                     torch.save(my_model.state_dict(), model_save_path)
@@ -144,14 +151,15 @@ def main(args):
                     print('loss error')
 
             optimizer.zero_grad()
-            pbar.update(1)
+            
             global_iter += 1
             if global_iter % check_iter == 0:
                 if len(loss_list) > 0:
                     print('epoch %d iter %5d, loss: %.3f\n' %
                           (epoch, i_iter, np.mean(loss_list)))
-                else:
+                    print
                     print('loss error')
+            pbar.update(1)
         pbar.close()
         epoch += 1
 
@@ -159,7 +167,7 @@ def main(args):
 if __name__ == '__main__':
     # Training settings
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('-y', '--config_path', default='config/semantickitti.yaml')
+    parser.add_argument('-y', '--config_path', default='config/rellis_scale.yml')
     args = parser.parse_args()
 
     print(' '.join(sys.argv))

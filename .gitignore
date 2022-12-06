@@ -1,3 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
 .DS_Store
+rellisdata
+savefolder
+savefolder_test
+model_save_dir/rellis.pt
+**/__pycache__/
+*.pyc
+*.zip
