@@ -7,7 +7,3 @@ Most of the time, it's crucial to calculate the appropriate trajectory for robot
 Improve traversability estimation
 ![image](https://github.com/nibafanfan/Cylinder1/assets/33424645/2f5665ed-7638-47b9-b91a-7c773a2f9ef1)
 
-
-
-![image](https://github.com/nibafanfan/Cylinder1/assets/33424645/5559415d-74c0-414c-8794-c1d00038d089)
-
