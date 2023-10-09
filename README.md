@@ -5,7 +5,5 @@ Most of the time, it's crucial to calculate the appropriate trajectory for robot
 ![image](https://github.com/nibafanfan/Cylinder1/assets/33424645/16dc4f6c-83ec-4ca6-823d-49063677ca9e)
 
 Improve traversability estimation
-  Identify deformable objects v.s. rigid objects, and choose the optimal path(Polevoy, 2022)
-  Semantic Segmentation
 ![image](https://github.com/nibafanfan/Cylinder1/assets/33424645/2f5665ed-7638-47b9-b91a-7c773a2f9ef1)
 
