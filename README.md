@@ -14,6 +14,8 @@ Improve traversability estimation
 ![image](https://github.com/nibafanfan/Cylinder1/assets/33424645/8e9ccba3-1d25-418f-b3e6-6ac9a8cd450c)
 
 The parameters for utilizing Cylinder3D on Rellis-3D
+
+
 <img width="506" alt="image" src="https://github.com/nibafanfan/Cylinder1/assets/33424645/3c26e8a4-ec68-461e-8286-d65d151db4bd">
 
 The training and testing data and what GPU I hired (had to stop before it reaches optimal results because I had limited calculation resources)
